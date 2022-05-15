@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <title>Vue Data Expression</title>
+</head>
+<body>
+    <h2>Vue 데이터의 표시</h2>
+    <div id="app">
+        <p>{{txt}}</p>
+        <p v-text="txt"></p>
+        <p v-html="txt"></p>
+    </div>
+    <script>
+        new Vue({
+            el : "#app",
+            data : {
+                txt : '<h3>Vue Data Expression</h3>'
+            }
+        })
+    </script>
+</body>
+</html>

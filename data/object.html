@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <title>Vue Object</title>
+</head>
+<body>
+    <h2>오브젝트형 표기</h2>
+    <div id="obj">
+        <p>{{ myProfile }}</p>
+        <p>{{ myProfile.name }} - {{myProfile.age}} - {{myProfile.height}}</p>
+    </div>
+    <script>
+        new Vue({
+            el : "#obj",
+            data : {
+                myProfile : {
+                    name : 'john',
+                    age : 24,
+                    height : '175cm'
+                }
+            }
+        })
+    </script>
+</body>
+</html>

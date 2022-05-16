@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <title>style Bind</title>
+</head>
+<body>
+    <h2>style Bind</h2>
+    <div id="color">
+        <p style="color : #E08954">color direct binding</p>
+        <p v-bind:style="{ color : bindColor }">color v-bind</p>
+        <hr>
+        <p style="font-size : 300%">font size direct binding</p>
+        <p v-bind:style="{ fontSize : bindSize }">font size v-bind</p>
+        <hr>
+        <p style="background-color : aqua;">background color direct binding</p>
+        <p v-bind:style="{backgroundColor : bindBackColor}">background color v-bind</p>
+    </div>
+    
+    <script>
+        new Vue({
+            el : "#color",
+            data : {
+                bindColor : '#E08954',
+                bindSize : '150%',
+                bindBackColor : 'lightblue'
+            }
+        })
+    </script>
+</body>
+</html>

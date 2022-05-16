@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <title>class Bind</title>
+</head>
+<body>
+    <h2>class Bind</h2>
+    <style>
+        .deco-through{
+            text-decoration: line-through;
+            color : blue;
+        }
+
+        .dark-gray{
+            background-color: darkgray;
+        }
+    </style>
+
+    <div id="clsBind">
+        <p class="deco-through">direct</p>
+        <p v-bind:class="decoClass">class v-bind</p>
+        <p v-bind:class="[decoClass, darkgrayClass]">multi class v-bind</p>
+        <p v-bind:class="{'deco-through' : alwaysOn}">class on/off</p>
+    </div>
+    
+    <script>
+        new Vue({
+            el : "#clsBind",
+            data : {
+                decoClass : 'deco-through',
+                darkgrayClass : 'dark-gray',
+                alwaysOn : true
+
+            }
+
+        })
+    </script>
+</body>
+</html>

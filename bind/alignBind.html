@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <title>align Bind</title>
+</head>
+<body>
+    <h2>align Bind</h2>
+    <div id="alignBind">
+        <p align="right">right align direct</p>
+        <p v-bind:align="alignCenter">center align v-bind</p>
+    </div>
+
+    <script>
+        new Vue({
+            el : "#alignBind",
+            data : {
+                alignCenter : 'center'
+            }
+        })
+    </script>
+</body>
+</html>

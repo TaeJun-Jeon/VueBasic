@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <title>check box Array</title>
+</head>
+<body>
+    <h2>check box on/off state array</h2>
+    <div id="checkBox">
+        <label><input type="checkbox" value="black" v-model="chkStates">
+            black</label><br>
+        <label><input type="checkbox" value="gold" v-model="chkStates">
+            gold</label><br>
+        <label><input type="checkbox" value="skyblue" v-model="chkStates">
+            skyblue</label><br>
+        array is {{ chkStates }}
+    </div>
+
+    <script>
+        new Vue({
+            el : '#checkBox',
+            data : {
+                chkStates : []
+            }
+        })
+    </script>
+</body>
+</html>

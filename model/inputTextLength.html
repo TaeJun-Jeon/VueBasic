@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <title>input Text Length</title>
+</head>
+<body>
+    <h2>input Text and Length</h2>
+    <div id="txt">
+        <textarea v-model="sentence"></textarea>
+        <p>sentence is {{sentence}}</p>
+        <p>length is {{sentence.length}} </p>
+    </div>
+
+    <script>
+        new Vue({
+            el : "#txt",
+            data : {
+                sentence : 'where is my wallet?~'
+            }
+        })
+    </script>
+</body>
+</html>

@@ -6,19 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
-    <title>input Text</title>
+    <title>input type number auto calc</title>
 </head>
 <body>
-    <h2>input Text Print</h2>
-    <div id="txt">
-        <input v-model="sentence" placeholder="input sentence">
-        <p>this is {{sentence}} </p>
+    <h2>input type number auto calc ( +1000 )</h2>
+    <div id="num">
+        <input v-model.number="inputNumber" type="number">
+        <p>「{{ 1000 + inputNumber }}」</p>
     </div>
+
     <script>
         new Vue({
-            el : '#txt',
+            el : "#num",
             data : {
-                sentence : ''
+                inputNumber : 0
             }
         })
     </script>

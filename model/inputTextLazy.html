@@ -6,19 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
-    <title>input Text</title>
+    <title>input text Lazy</title>
 </head>
 <body>
-    <h2>input Text Print</h2>
-    <div id="txt">
-        <input v-model="sentence" placeholder="input sentence">
-        <p>this is {{sentence}} </p>
+    <h2>input text Lazy</h2>
+    <div id="app">
+        <input v-model.lazy="inputTextLazy">
+        <p>input focus out (lazy) :「{{ inputTextLazy }}」</p>
     </div>
+
     <script>
         new Vue({
-            el : '#txt',
+            el : "#app",
             data : {
-                sentence : ''
+                inputTextLazy : ''
             }
         })
     </script>

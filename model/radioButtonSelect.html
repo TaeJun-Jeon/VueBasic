@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <title>radio button select</title>
+</head>
+<body>
+    <h2>radio button select</h2>
+    <div id="btnSelect">
+        <label><input type="radio" value="red" v-model="picked">
+            red</label><br>
+        <label><input type="radio" value="green" v-model="picked">
+            green</label><br>
+        <label><input type="radio" value="blue" v-model="picked">
+            blue</label><p>
+        {{ picked }}
+    </div>
+
+    <script>
+        new Vue({
+            el : "#btnSelect",
+            data : {
+                picked : 'red'
+            }
+        })
+    </script>
+</body>
+</html>

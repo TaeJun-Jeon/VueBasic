@@ -6,19 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
-    <title>input Text</title>
+    <title>radio image change</title>
 </head>
 <body>
-    <h2>input Text Print</h2>
-    <div id="txt">
-        <input v-model="sentence" placeholder="input sentence">
-        <p>this is {{sentence}} </p>
+    <h2>radio image change</h2>
+    <div id="imgChange">
+        <label><input type="radio" value="img/animal.png" v-model="fileNm">
+            animal</label><br>
+        <label><input type="radio" value="" v-model="fileNm">
+            no</label><br>
+        <p>{{ fileNm }}<p>
+        <img v-bind:src="fileNm"></img>
     </div>
     <script>
         new Vue({
-            el : '#txt',
+            el : "#imgChange",
             data : {
-                sentence : ''
+                fileNm : ''
             }
         })
     </script>

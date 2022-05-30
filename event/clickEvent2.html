@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <title>click Event</title>
+</head>
+<body>
+    <h2>click and plus</h2>
+    <div id="count">
+        <p>{{count}}</p>
+        <button v-on:click="countUp(5)">plus 5</button>
+        <button v-on:click="countUp(10)">plus 10</button>
+        <button v-on:click="countUp(100)">plus 100</button>
+    </div>
+    <script>
+        new Vue({
+            el : "#count",
+            data : {
+                count : 1
+            },
+            methods : {
+                countUp : function(num){
+                    this.count += num;
+                }
+            }
+        })
+    </script>
+</body>
+</html>

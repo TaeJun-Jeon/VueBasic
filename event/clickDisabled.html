@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <title>click Event Disabled</title>
+</head>
+<body>
+    <h2>click Event Disabled</h2>
+    <div id="disabledEvent">
+        <button value="good" v-bind:disabled="isClicked" v-on:click="firstClick">only first Click</button>
+    </div>
+
+    <script>
+        function notice(){
+            alert("notice : first click and button disabled");
+        }
+
+        new Vue({
+            el : "#disabledEvent",
+            data : {
+                isClicked : false
+            },
+            methods : {
+                firstClick : function(){
+                    this.isClicked = true;
+                    notice();
+                }
+            }
+        })
+    </script>
+</body>
+</html>

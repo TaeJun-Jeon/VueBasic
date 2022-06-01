@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <title>Object Array</title>
+</head>
+<body>
+    <h2>Object Araay data -> list</h2>
+    <div id="datalist">
+        <ul>
+            <li v-for="drink in objectArray">{{ drink.name }} / {{drink.price}}</li>
+        </ul>
+    </div>
+
+    <script>
+        new Vue({
+            el : "#datalist",
+            data : {
+                objectArray : [
+                    {name : 'cock', price : 1200},
+                    {name : 'cherrycock', price : 1400},
+                    {name : 'cider', price : 1600},
+                    {name : 'sparkling water', price : 1500}
+                ]
+            }
+        })
+    </script>
+</body>
+</html>

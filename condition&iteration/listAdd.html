@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <title>list Add</title>
+</head>
+<body>
+    <h2>button click and list add</h2>
+    <div id="data">
+        <ul>
+            <li v-for="item in drinkArray">{{item}}</li>
+        </ul>
+        <button v-on:click="addLast">last add</button><br>
+        <button v-on:click="addObj(1)">second add</button><br>
+        <button v-on:click="changeObj(2)">third change</button><br>
+        <button v-on:click="deleteObj(3)">fourth delete</button><br>
+    </div>
+
+    <script>
+        new Vue({
+            el : "#data",
+            data : {
+                drinkArray : ['cock', 'cherrycock', 'cider', 'sparkling water', 'fanta']
+            },
+            methods : {
+                addLast : function(){
+                    this.drinkArray.push(' (last add) ');
+                },
+                addObj : function(index){
+                    this.drinkArray.splice(index, 0, '(add)');
+                },
+                changeObj : function(index){
+                    this.drinkArray.splice(index, 1, '(change)');
+                },
+                deleteObj : function(index){
+                    this.drinkArray.splice(index, 1);
+                }
+            }
+        })
+    </script>
+</body>
+</html>

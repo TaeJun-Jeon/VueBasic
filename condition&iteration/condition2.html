@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <title>condition</title>
+</head>
+<body>
+    <h2>condition2</h2>
+    <div id="application">
+        <label><input type="checkbox" v-model="visible">checkbox</label>
+        <p v-if="visible"> checkbox checked (true) </p>
+        <p v-else>checkbox unchecked (false) </p>
+    </div>
+    <script>
+        new Vue({
+            el : "#application",
+            data : {
+                visible : true
+            }
+            
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <title>even number click event</title>
+</head>
+<body>
+    <h2> Array Iteration condition event complex</h2>
+    <div id="multiplication">
+        <ul>
+            <li v-for="(item, idx) in numArray"> {{item}}
+                <button v-on:click="modifyNum(idx)">change</button>
+                <button v-on:click="deleteNum(idx)">delete</button>
+            </li>
+            <br/>
+            <button v-on:click="addNum()">add</button>
+            <button v-on:click="sortNum()">sort</button>
+            <button v-on:click="showMultiplication()">Multiplication Table</button>
+
+            <ul v-if="show">
+                <li v-for="item in numArray">
+                    <p v-for="item2 in 9"> {{item}} x {{item2}} = {{item*item2}}</p>
+                </li>
+            </ul>
+        </ul>
+    </div>
+
+    <script>
+        new Vue({
+            el : "#multiplication",
+            data : {
+                numArray : [2,3,4,5,6,7,8,9],
+                show : false
+
+            },
+            methods : {
+                sortNum : function(){
+                    this.numArray = this.numArray.filter(function (item, idx, array){
+                        return array.indexOf(item) === idx;
+                    });
+
+                    this.numArray.sort(function(a,b) {
+                        return (a < b ? -1 : 1);
+                    });
+                },
+                addNum : function(){
+                    this.numArray.push(1);
+                },
+                modifyNum : function(index){
+                    this.numArray.splice(index, 1, this.numArray[index] + 1);
+                },
+                deleteNum : function(index){
+                    this.numArray.splice(index, 1);   
+                },
+                showMultiplication : function(){
+                    this.show = true;
+                }
+            }
+        })
+
+    </script>
+</body>
+</html>

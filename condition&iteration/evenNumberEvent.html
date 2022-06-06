@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <title>even number click event</title>
+<body>
+    <h2>even number click event</h2>
+    <div id="click">
+        <ul>
+            <li v-for="evenNumber in numArray">{{ evenNumber }}</li>
+        </ul>
+        <button v-on:click="evenData()"> even Number Filtering</button>
+    </div>
+
+    <script>
+        new Vue({
+            el : "#click",
+            data : {
+                numArray : [7,8,9,10,11,12,13,14]
+            },
+            methods : {
+                evenData : function(){
+                    this.numArray = this.numArray.filter(
+                        function(value) {
+                            return value % 2 == 0;
+                        }
+                    )
+                }
+            }
+        })
+    </script>
+</body>
+</html>

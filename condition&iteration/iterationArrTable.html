@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <title>iteration Array Table</title>
+</head>
+<body>
+    <h2>iteration Array Table</h2>
+    <div id="table">
+        <h3> programming language rank</h3>
+        <table>
+            <thead>
+                <th v-for="head in headArray">{{head}}</th>
+            </thead>
+            <tbody>
+                <tr v-for="row in bodyArray">
+                    <td v-for="item in row">{{item}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        new Vue({
+            el : "#table",
+            data : {
+                headArray : ['programing language', 1998, 2003, 2008, 2013, 2018],
+                bodyArray : [
+                    ['JAVA', 16, 1, 1, 2, 1],
+                    ['C', 1, 2, 2, 1, 2],
+                    ['C++', 2, 3, 3, 4, 3],
+                    ['PYTHON', 23, 11, 6, 7, 4],
+                    ['JAVASCRIPT', 20, 7, 8, 10, 7]
+                ]
+            }
+        })
+    </script>
+
+    <style>
+        table {
+            width : 100%;
+            text-align : left;
+        }
+        table th{
+            padding : 12px;
+            border-bottom : 2px solid gray;
+        }
+        table td{
+            padding : 12px;
+        }
+        table tr:nth-of-type(even){
+            background-color : rgba(0, 0, 255, 0.1);
+        }
+    </style>
+</body>
+</html>

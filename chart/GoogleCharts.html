@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <title>Google Charts</title>
+</head>
+<body>
+    <h2>Google Charts Circle Graph</h2>
+    <h3>lunch menu Preference</h3>
+
+    <div id="googleChart" style="height : 500px;"></div>
+    
+    <script>
+
+        var graphData = [
+            ['kind', 'quantity'],
+            ['lunch box', 5], ['galbitang', 4], ['omurice', 6], ['champon', 3], ['bibimbap', 5], ['soba', 3]
+        ];
+
+        google.charts.load('current', {packages : ['corechart']});
+        google.charts.setOnLoadCallback(drawBasic);
+
+        function drawBasic(){
+            var data = google.visualization.arrayToDataTable(graphData);
+            var options = {title : 'lunch preference', "is3D" : false};
+            var chart = new google.visualization.PieChart(document.getElementById('googleChart'));
+            chart.draw(data, options);
+        }
+    </script>
+</body>
+</html>

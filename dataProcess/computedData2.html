@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <title>computed Data2</title>
+</head>
+<body>
+    <h2>computed tax2</h2>
+    <div id="calculator">
+        <input type="number" v-model.number="price">won x
+        <input type="number" v-model.number="count">number
+        <p>　　　total {{ sum }} won</p>
+        <p>tax included {{priceCompute}} won</p>
+    </div>
+
+    <script>
+        new Vue({
+            el : "#calculator",
+            data : {
+                price : 10000,
+                count : 2
+            },
+            computed : {
+                sum : function(){
+                    return this.price * this.count;
+                },
+
+                priceCompute : function(){
+                    return this.sum * 1.10;
+                }
+            }
+        })
+
+    </script>
+</body>
+</html>

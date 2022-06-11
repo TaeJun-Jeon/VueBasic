@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <title>Google Chart Vue</title>
+</head>
+<body>
+    <h2>Google Chart Circle Graph Vue</h2>
+    <h3>lunch menu preference</h3>
+    <div id="googleChart" style="height : 500px;"></div>
+    <div id="lunchVote">
+        <li v-for="(item, vote) in lunchArray" v-if="vote > 0">{{item[0]}} : {{item[1]}}
+            <button v-on:click="addOne(vote)">vote</button>
+        </li> 
+    </div>
+
+    <script>
+        var graphData = [
+            ['kind', 'quantity'],
+            ['lunch box', 5], ['galbitang', 4], ['omurice', 6], ['champon', 3], ['bibimbap', 5], ['soba', 3]
+        ];
+
+        google.charts.load('current', {packages : ['corechart']});
+        google.charts.setOnLoadCallback(drawBasic);
+
+        function drawBasic(){
+            var data = google.visualization.arrayToDataTable(graphData);
+            var options = {title : 'lunch preference', "is3D" : true};
+            var chart = new google.visualization.PieChart(document.getElementById('googleChart'));
+            chart.draw(data, options);
+        }
+    </script>
+    <script>
+        new Vue({
+            el : "#lunchVote",
+            data : {
+                lunchArray : graphData
+            },
+            methods : {
+                addOne : function(val){
+                    var obj = this.lunchArray[val];
+                    obj[1]++;
+                    this.lunchArray.splice(val, 1, obj);
+                    drawBasic();
+                }
+            }
+        })
+    </script>
+</body>
+</html>

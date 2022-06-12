@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <title>Counting Letters</title>
+</head>
+<body>
+    <h2>Counting Letters</h2>
+    <div id="letters">
+        <p>max letters length 140</p>
+        <textarea v-model="inputText"></textarea>
+        <p v-bind:style="{color : textColor}">the remaining letters {{ remaining }}</p>
+    </div>
+
+    <script>
+        new Vue({
+            el : "#letters",
+            data : {
+                inputText : "today's weather is very good"
+            },
+            computed : {
+                remaining : function(){
+                    return 140 - this.inputText.length;
+                },
+
+                textColor : function(){
+                    col = "green";
+                    if(this.remaining > 20){
+                        col = "orange";
+                    }
+                    if(this.remaining < 1){
+                        col = "red";
+                    }
+                    return col;
+                }
+            }
+
+        })
+    </script>
+</body>
+</html>

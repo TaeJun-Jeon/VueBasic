@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <title>Input Text Timer</title>
+</head>
+<body>
+    <h2>Input Text Timer</h2>
+    <div id="timer">
+        <p>forbidden Text <input :disabled="!isWritable" v-model="forbiddenText"></p>
+        <p>Enter time limit(s) <input :disabled="!isWritable" v-model="setTime"><button :disabled="!isWritable" v-on:click="start">Start</button></p>
+        <p>time remaining {{limitTime}}</p><br>
+        <textarea :disabled="isWritable" v-model="inputText"></textarea>
+        <p v-if="isResult">input text length : {{ wordCnt }} </p>
+        <p v-if="isResult">demerit : {{resultScore}} (forbidden text 1 : -12 score)</p>
+    </div>
+
+    <script>
+        new Vue({
+            el : "#timer",
+            data : {
+                forbiddenText : "bad,stupid",
+                setTime : 0,
+                limitTime : 0,
+                isWritable : true,
+                isResult : false,
+                inputText : "",
+                forbiddenCnt : 0,
+            },
+            methods : {
+                start : function(){
+                    this.isWritable = false;
+                    this.limitTime = this.setTime;
+                    this.timerObj = setInterval(() => {this.limitTime--}, 1000);
+                    this.isResult = false;
+                }
+            },
+            computed : {
+                resultScore : function(){
+                    return this.forbiddenCnt * 12;
+                }
+            },
+            watch : {
+                limitTime : function(){
+                    if(this.limitTime <= 0){
+                        alert("it's time limit");
+                        clearInterval(this.timerObj);
+                        this.isWritable = true;
+                        this.isResult = true;
+                        this.wordCnt = this.inputText.length;
+                    }
+                },
+
+                inputText : function(){
+                    var arrForbiddenText = this.forbiddenText.split(",");
+
+                    for(var i=0; i<arrForbiddenText.length; i++){
+                        var pos = this.inputText.indexOf(arrForbiddenText[i]);
+                        if(pos >= 0){
+                            alert(this.forbiddenText + "is forbidden Text!!!!!");
+                            this.inputText = this.inputText.substr(0, pos);
+                            this.limitTime = this.limitTime + 10;
+                            this.forbiddenCnt++;
+                        }
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>

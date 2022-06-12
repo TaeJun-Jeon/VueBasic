@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <title>when entering prohibited characters</title>
+</head>
+<body>
+    <h2>when entering prohibited characters</h2>
+    <div id="app">
+        <p>forbidden characters : {{forbiddenText}}</p>
+        <textarea v-model="inputText"></textarea>
+    </div>
+
+    <script>
+        new Vue({
+            el : "#app",
+            data : {
+                forbiddenText : "babo",
+                inputText : "today's weather is good"
+            },
+            watch : {
+                inputText : function(){
+                    var pos = this.inputText.indexOf(this.forbiddenText);
+                    if(pos >= 0){
+                        alert(this.forbiddenText + " is forbidden Text");
+                        this.inputText = this.inputText.substr(0, pos);
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>

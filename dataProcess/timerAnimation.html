@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TweenMax.min.js"></script>
+    <title>Timer Animation</title>
+</head>
+<body>
+    <h2>Timer Animation</h2>
+    <div id="timer">
+        <p>timer {{animationNum}}</p>
+        <input type="number" v-model.number="myNum">
+    </div>
+    
+    <script>
+        new Vue({
+            el : "#timer",
+            data : {
+                myNum : 0,
+                tweenNum : 0
+            },
+            watch : {
+                myNum : function(){
+                    TweenMax.to(this.$data, 1, {tweenNum : this.myNum})
+                }
+            },
+            computed : {
+                animationNum : function(){
+                    return this.tweenNum.toFixed(0);
+                }
+            }
+        })
+    </script>
+</body>
+</html>

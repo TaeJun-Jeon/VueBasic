@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <title>Input Text Timer Vue</title>
+</head>
+<body>
+    <h2>Input Text Timer Vue</h2>
+    <div id="timer">
+        <p>{{restTime}} seconds</p>
+        <button v-on:click="startTimer">START</button>
+    </div>
+
+    <script>
+        new Vue({
+            el : "#timer",
+            data : {
+                restTime : 5,
+                timerObj : null,
+            },
+            methods : {
+                startTimer : function(){
+                    this.restTime = 5;
+                    this.timerObj = setInterval(() => {this.restTime--}, 1000);
+                }
+            },
+            watch : {
+                restTime : function(){
+                    if(this.restTime <= 0){
+                        alert("time limit");
+                        clearInterval(this.timerObj);
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>

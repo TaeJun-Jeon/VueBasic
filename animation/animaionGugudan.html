@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css" >
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <title>animation gugudan</title>
+</head>
+<body>
+    <h2>animation gugudan</h2>
+    <div id="gugu">
+        <ul>
+            <transition-group>
+                <li v-for="(item, idx) in dataArr" v-bind:key="item">{{item}}
+                    <button v-on:click="modifyNumber(idx)">change</button>
+                    <button v-on:click="deleteNumber(idx)">delete</button>
+                </li>
+            </transition-group>
+            <br/>
+            <button v-on:click="addNumber()">addNum</button>
+            <button v-on:click="sortData()">sort</button>
+            <button v-on:click="gugudan()">show gugudan</button>
+
+            <transition>
+                <ul v-if="show">
+                    <li v-for="item in dataArr">
+                        <p v-for="item2 in 9">{{item}} X {{item2}} = {{item * item2}}</p>
+                    </li>
+                </ul>
+            </transition>
+        </ul>
+    </div>
+
+    <script>
+        new Vue({
+            el : "#gugu",
+            data : {
+                dataArr : [2,3,4,5,6,7,8,9],
+                show : false
+            },
+            methods : {
+
+                sortData : function(){
+                    this.dataArr = this.dataArr.filter(function(item, idx, array){
+                        return array.indexOf(item) === idx;
+                    });
+
+                    this.dataArr.sort(function(a,b){
+                        return (a<b ? -1 : 1);
+                    });
+                },
+
+                addNumber : function(){
+                    this.dataArr.push(this.dataArr[this.dataArr.length-1] + 1);
+                },
+                modifyNumber : function(idx){
+                    var chgNum = this.dataArr[idx] + 100;
+
+                    while(true){
+                        if(this.dataArr.indexOf(chgNum) == -1) break;
+                        else chgNum++;
+                    }
+                    this.dataArr.splice(idx, 1, chgNum);
+                },
+                deleteNumber : function(idx){
+                    this.dataArr.splice(idx, 1);
+                },
+                gugudan : function(){
+                    this.show = true;
+                }
+
+            }
+            
+        })
+    </script>
+    <style>
+        .v-enter-active, .v-leave-active {
+            transition: 0.5s;
+        }
+        
+        .v-enter, .v-leave-to {
+            opacity: 0;
+            transform: translateX(50px)
+        }
+        
+        .v-move {
+            transition: 2s;
+        }
+    </style>
+</body>
+</html>

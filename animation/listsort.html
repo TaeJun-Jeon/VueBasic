@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css" >
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <title>list sort animation</title>
+</head>
+<body>
+    <h2>list sort animation</h2>
+    <div id="sort">
+        <transition-group>
+            <li v-for="item in dataArr" v-bind:key="item">{{item}}</li>
+        </transition-group>
+        <button v-on:click="sortData">sort</button>
+        <button v-on:click="shuffleData">shuffle</button>
+    </div>
+    <script>
+        new Vue({
+            el : "#sort",
+            data : {
+                dataArr : ['one', 'two', 'three', 'four', 'five']
+            },
+            methods : {
+                sortData : function(){
+                    this.dataArr.sort(function(a, b){
+                        if(a < b) return -1;
+                        if(a > b) return 1;
+                        return 0;
+                    });
+                },
+                shuffleData : function(){
+                    var buffer = [];
+                    var len = this.dataArr.length;
+                    for(var i=0; len > 0; len--){
+                        var j = Math.floor(Math.random() * len);
+                        buffer.push(this.dataArr[j]);
+                        this.dataArr.splice(j, 1);
+                    }
+                    this.dataArr = buffer;
+                },
+            }
+        });
+    </script>
+    <style>
+        .v-move {
+            transition: 5s;
+        }
+    </style>
+</body>
+</html>

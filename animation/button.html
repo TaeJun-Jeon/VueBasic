@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css" >
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <title>Button Animation</title>
+</head>
+<body>
+    <h2>when button click list add and animation</h2>
+    <div id="btn">
+        <transition-group>
+            <li v-for="item in dataArr" v-bind:key="item">{{item}}</li>
+        </transition-group>
+        <label><input v-model="addItem" placeholder="add list"></label>
+        <button v-on:click="addList">add</button>
+        <button v-on:click="removeList">last one delete</button>
+    </div>
+
+    <script>
+        new Vue({
+            el : "#btn",
+            data : {
+                dataArr : ['rose', 'cherry blossom', 'mist flower'],
+                addItem : ''
+            },
+            methods : {
+                addList : function(){
+                    this.dataArr.push(this.addItem);
+                    this.addItem = '';
+                },
+                removeList : function(){
+                    var lastIdx = this.dataArr.length - 1;
+                    this.dataArr.splice(lastIdx, 1);
+                }
+            }
+        })
+    </script>
+    <style>
+        .v-enter-active, .v-leave-active {
+            transition: 0.5s;
+        }
+       
+        .v-enter, .v-leave-to {
+            opacity: 0;
+            transform: translateX(50px)
+        }
+    </style>
+</body>
+</html>

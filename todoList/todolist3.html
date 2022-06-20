@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <title>todolist3</title>
+</head>
+<body>
+    <h2>ToDo List3</h2>
+
+    <div id="todo">
+        <div v-for="(todo, idx) in todoList">
+            <label>
+                <input type="checkbox" v-model="todo.done">
+                <span v-bind:class="{donestyle:todo.done}">{{todo.text}}</span>
+                <span v-bind:class="{donestyle:todo.done}">( complete Day : {{todo.DueDate}} )</span>
+                <button v-on:click="extendDate(idx)">complete Day extend</button>
+            </label>
+        </div>
+
+        <input type="text" v-model.trim="addText" v-on:keyup.enter="addTodo" placeholder="todo work">
+        /
+        <input type="text" v-model:trim="dueDate" v-on:keyup.enter="addTodo" placeholder="complete day"> (input type : YYYYMMDD)
+        <p>
+            <button v-on:click="cleanTodo">complete work delete</button>
+            <button v-on:click="sortData('todo')">sort(todo work)</button>
+            <button v-on:click="sortData('date')">sort(complete day)</button>
+        </p>
+
+        <p>
+            {{todoList.length}} / {{remaining}} complete, {{overdate}} comple day done 
+        </p>
+    </div>
+
+    <script>
+        new Vue({
+            el : "#todo",
+            data : {
+                addText : '',
+                dueDate : '',
+                todoList : [
+                    {done : false, text : 'vue', DueDate : '20220120'},
+                    {done : false, text : 'javascript', DueDate : '20220220'},
+                    {done : false, text : 'svelte', DueDate : '20220320'},
+                    {done : false, text : 'react', DueDate : '20220420'},
+                    {done : false, text : 'phython', DueDate : '20220520'},
+                    {done : false, text : 'angular', DueDate : '20220620'}
+                ]
+            },
+            computed : {
+                remaining : function(){
+                    return this.todoList.filter(function(val){
+                        return val.done == true;
+                    }).length;
+                },
+
+                overdate : function(){
+                    return this.todoList.filter(function(val){
+                        var date = new Date();
+                        var year = date.getFullYear();
+                        var month = new String(date.getMonth() + 1);
+                        var day = new String(date.getDate());
+
+                        if(month.length == 1){
+                            month = "0" + month;
+                        }
+
+                        if(day.length == 1){
+                            day = "0" + day;
+                        }
+
+                        var due_date = year + month + day;
+                        return val.DueDate < due_date;
+
+                    }).length;
+                }
+            },
+            methods : {
+                addTodo : function(){
+                    if(this.addText){
+                        var due_date = this.dueDate;
+
+                        if(this.dueDate == ""){
+                            var date = new Date();
+                            date = new Date(Date.parse(data) + 1 * 1000 * 60 * 60 * 24);
+                            var year = date.getFullYear();
+                            var month = new String(date.getMonth() + 1);
+                            var day = new String(date.getDate());
+
+                            if(month.length == 1){
+                                month = "0" + month;
+                            }
+
+                            if(day.length == 1){
+                                day = "0" + day;
+                            }
+                            due_date = year + month + day;
+                        }
+                        this.todoList.push({done : false, text : this.addText, DueDate : due_date});
+                        this.addText = '';
+                    }
+                },
+                cleanTodo : function(){
+                    this.todoList = this.todoList.filter(function(val){
+                        return val.done == false;
+                    })
+                },
+                extendDate : function(idx){
+                    var str_date = this.todoList[idx].DueDate;
+                    var yy = str_date.substr(0,4);
+                    var mm = str_date.substr(4,2);
+                    var dd = str_date.substr(6,2);
+
+                    var date = new Date(Date.parse(new Date(yy, mm-1, dd)) + 1 * 1000 * 60 * 60 * 24);
+                    var year = date.getFullYear();
+                    var month = new String(date.getMonth() + 1);
+                    var day = new String(date.getDate());
+
+                    if(month.length == 1){
+                        month = "0" + month;
+                    }
+
+                    if(day.length == 1){
+                        day = "0" + day;
+                    }
+
+                    var due_date = year + month + day;
+
+                    this.todoList[idx].DueDate = due_date;
+                },
+                sortData : function(type){
+                    if(type == 'todo'){
+                        this.todoList.sort(function (a, b){
+                            return (a.text < b.text ? -1 : 1);
+                        });
+                    } else {
+                        this.todoList.sort(function(a, b){
+                            return (a.DueDate < b.DueDate ? -1 : 1);
+                        })
+                    }
+                }
+            }
+        })
+    </script>
+    <style>
+        .donestyle {
+            text-decoration: line-through;
+            color: lightgray;
+        }   
+    </style>
+</body>
+</html>

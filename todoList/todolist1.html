@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <title>todolist1</title>
+</head>
+<body>
+    <h2>ToDo List1</h2>
+    <div id="todo">
+        <div v-for="todo in todoList">
+            <label>
+                <input type="checkbox" v-model="todo.done">
+                <span v-bind:class="{donestyle:todo.done}">{{ todo.text }}</span>
+            </label>
+        </div>
+        <p>{{ remaining }} / {{ todoList.length }}</p>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#todo',
+            data: {
+                todoList: [
+                    {done:false, text:'bread'},
+                    {done:false, text:'coffee'}
+                ]
+            },
+            computed: {
+                remaining: function() {
+                    return this.todoList.filter(function(val) {
+                        return val.done;
+                    }).length;
+                }
+            }
+        })
+    </script>
+
+    <style>
+        .donestyle{ 
+            text-decoration : line-through; 
+            color : lightgray
+        }
+    </style>
+</body>
+</html>

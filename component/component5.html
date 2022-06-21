@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <title>component 5</title>
+</head>
+<body>
+    <h2>component Example</h2>
+    <div id="comp">
+        <component v-for="item in numArray" v-bind:num="item"></component>
+    </div>
+
+    <script>
+        var myComponent = {
+            template : '<p>{{result}}</p>',
+            props : {
+                num : Number
+            },
+            computed : {
+                result : function(){
+                    if(this.num % 2 == 0){
+                        return this.num + " is Even Number"
+                    } else {
+                        return this.num + " is Odd Number"
+                    }
+                }
+            }
+        }
+
+        new Vue({
+            el : "#comp",
+            data : {
+                numArray : [1,2,3,4,5,6,7,8,9,10,11,12]
+            },
+            components : {
+                'component' : myComponent,
+            }
+        })
+    
+    </script>
+
+</body>
+</html>

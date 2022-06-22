@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <title>array Sort</title>
+</head>
+<body>
+    <h2>array Sort</h2>
+    <div id="sort">
+        <div v-for="item in dataArray" v-bind:key="item.title">
+            <component v-bind:object="item"></component>
+        </div>
+        <button v-on:click="sortData">sort</button>
+        <button v-on:click="shuffleData">shuffle</button>
+    </div>
+
+    <script>
+        var myComponent = {
+            props : ["object"],
+            template : 
+                `
+                <div style="width:300px;backgroundColor:#ffddaa;">
+                    <p style="backgroundColor:#ffa95e;">{{object.title}}</p>
+					<p>Translate：{{object.body}}</p>
+                </div>
+                `
+        }
+
+        new Vue({
+            el : "#sort",
+            data : {
+                dataArray : [
+                    {title : 'AAA', body : 'aaa'},
+                    {title : 'BBB', body : 'bbb'},
+                    {title : 'ABC', body : 'abc'}
+                ]
+            },
+            components : {
+                'component' : myComponent
+            },
+            methods : {
+                sortData : function(){
+                    this.dataArray.sort(function(a, b){
+                        return (a.title < b.title ? -1 : 1);
+                    });
+                },
+
+                shuffleData : function(){
+                    var buffer = [];
+                    var len = this.dataArray.length;
+                    for(var i=len; len > 0; len--){
+                        var r = Math.floor(Math.random() * len);
+                        buffer.push(this.dataArray[r]);
+                        this.dataArray.splice(r, 1);
+                    }
+                    this.dataArray = buffer;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <title>Quiz</title>
+</head>
+<body>
+    <h2>Quiz</h2>
+    <div id="quizApp">
+        <div v-for="item in dataArray" v-bind:key="item.title">
+            <quiz v-bind:object="item"></quiz>
+        </div>
+        <br/>
+        <button v-if="show" v-on:click="answerQuiz">answer submit</button>
+        <br/>
+        <p v-if="showResult">total point : {{score}}</p>
+        <input type="file" v-on:change="loadData">
+    </div>
+
+    <script>
+        var myQuiz = {
+            props : ["object"],
+            template : `
+                <div style="width:600px;backgroundColor:#ffddaa;">
+                    <p style="backgroundColor:#ffa95e;">
+                    question {{object.no}}.  {{object.question}} (point : {{object.point}})
+                    </p>
+                    answer :
+                    <input type="radio" v-model="object.user_answer" value="true"> O &nbsp;
+                    <input type="radio" v-model="object.user_answer" value="false"> X
+                </div>
+                `
+        }
+
+        new Vue({
+            el : "#quizApp",
+            data : {
+                dataArray : [],
+                show : false,
+                showResult  : false,
+                score : 0
+            },
+            components : {
+                'quiz' : myQuiz
+            },
+            methods : {
+                loadData : function(e){
+                    file = e.target.files[0];
+                    if(file){
+                        var reader = new FileReader()
+                        var vm = this;
+                        reader.onload = function(e){
+                            vm.dataArray = JSON.parse(e.target.result);
+                        }
+                        reader.readAsText(file);
+                        this.show = true;
+                    }
+                },
+                answerQuiz : function(){
+                    var score = 0;
+                    for(var i = 0 ; i < this.dataArray.length ; i ++) {
+                        if(this.dataArray[i].user_answer == this.dataArray[i].answer) {
+                            score += this.dataArray[i].point;
+                        }
+                    }
+                    this.score = score;
+                    this.showResult = true;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

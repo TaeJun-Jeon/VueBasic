@@ -1,0 +1,22 @@
+{
+    "board": [
+      {
+        "no": "1",
+        "title": "first post",
+        "content": "The First Post",
+        "view": "1"
+      },
+      {
+        "no": "2",
+        "title": "second post",
+        "content": "The Second Post",
+        "view": "1"
+      },
+      {
+        "no": "3",
+        "title": "third post",
+        "content": "The Third Post",
+        "view": "1"
+      }
+    ]
+  }

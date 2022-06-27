@@ -55,12 +55,56 @@
         };
 
         var myBoardRead = {
-
+            props : ["object"],
+            template : '<div><table id="list">\n' +
+                '           <tr>\n' + 
+                '               <td style="width : 50px">글제목</td>\n' + 
+                '               <td>{{object.title}}</td>\n' + 
+                '           </tr>\n' + 
+                '           <tr style="height : 300px">\n' + 
+                '               <td colspan="2">{{object.content}}</td>\n' +
+                '           </tr>\n' +
+                '        </table>' + 
+                '      <button v-on:click="boardList" style="float : right;">목록</button>' + 
+                '     </div>',
+            methods : {
+                boardList : function(){
+                    this.$emit('board-list');
+                }
+            } 
         };
 
         var myBoardWrite = {
-            
-        }
+            template : '<div>\n' + 
+                '           <table id="list">\n' + 
+                '               <tr>\n' + 
+                '                   <td>글제목</td>\n' + 
+                '                   <td><input type="text" v-model="title" style="width : 90%"></td>\n' + 
+                '               </tr>\n' + 
+                '               <tr>\n' + 
+                '                   <td colspan="2"><textarea v-model="content" style="width : 100%"></textarea></td>\n' +
+                '               </tr>\n' + 
+                '           </table>\n' + 
+                '           <button v-on:click="boardList" style="float : right;">목록</button>' + 
+                '           <button v-on:click="boardSave" style="float : right;">저장</button>' + 
+                '       </div>',
+            methods : {
+                boardList : function(){
+                    this.$emit('board-list');
+                },
+
+                boardSave : function(){
+                    this.$emit('board-save', this.title, this.content);
+                }
+            },
+
+            data : function(){
+                return {
+                    title : "",
+                    content : ""
+                }
+            }
+        };
     </script>
     <script>
         new Vue({
@@ -122,6 +166,24 @@
                     this.writeOk = true;
                 },
 
+                boardSave : function(title, content){
+                    var no = 1;
+                    if(this.dataArr['board'].length != 0){
+                        no = parseInt(this.dataArr['board'][this.dataArr['board'].length - 1].no) + 1
+                    }
+
+                    var board_info = {
+                        no : no,
+                        title : title,
+                        content : content,
+                        view : "1"
+                    };
+
+                    this.dataArr['board'].push(board_info);
+                    this.writeOk = false;
+                    this.readOk = false;
+                    this.listOk = true;
+                },
 
                 boardDelete : function(no){
                     for(var i=0; i < this.dataArr['board'].length; i++){

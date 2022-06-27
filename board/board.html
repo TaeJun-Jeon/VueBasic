@@ -13,13 +13,147 @@
     <div id="board">
         <p>board data json read</p>
         <input type="file" v-on:change="loadData">
+        <button v-on:click="saveBoardList">board Save</button>
 
+        <board-list v-if="listOk" v-bind:object="dataArr['board']"
+                    v-on:board-read="boardRead"
+                    v-on:board-write="boardWrite"
+                    v-on:board-delete="boardDelete">
+        </board-list>
+        <board-read v-if="readOk" v-bind:object="boardInfo" v-on:board-list="boardList"></board-read>
+        <board-write v-if="writeOk" v-on:board-list="boardList" v-on:board-save="boardSave"></board-write>
     </div>
     <script>
+        var myBoardList = {
+            props : ["object"],
+            template : '<div><table id="list">\n' + 
+                '               <tr>\n' + 
+                '                   <th style="width : 50px">글번호</th>\n' +
+                '                   <th>글제목</th>\n' +
+                '                   <th style="width : 50px">조회수</th>\n' +
+                '                   <th style="width : 70px"></th>\n' + 
+                '               </tr>\n' + 
+                '               <tr v-for="item in object" v-bind:key="item.no">' + 
+                '                   <td>{{item.no}}</td>' + 
+                '                   <td v-on:click="boardRead(item)">{{item.title}}</td>' +
+                '                   <td>{{item.view}}</td>' +
+                '                   <td><button v-on:click="boardDelete(item.no)">삭제</button></td>'+
+                '               </tr>'+
+                '            </table>'+
+                '<button v-on:click="boardWrite" style="float : right;">글쓰기</button></div>',
+            methods : {
+                boardRead : function(info){
+                    this.$emit('board-read', info);
+                },
+                boardWrite : function(){
+                    this.$emit('board-write');
+                },
+                boardDelete : function(no){
+                    this.$emit('board-delete', no);
+                }
+            }
+        };
+
+        var myBoardRead = {
+
+        };
+
+        var myBoardWrite = {
+            
+        }
+    </script>
+    <script>
         new Vue({
-            method : {
+            el : "#board",
+            data : {
+                dataArr : [],
+                listOk : false,
+                readOk : false,
+                writeOk : false,
+                boardInfo : {}
+            },
+
+            components : {
+                'board-list' : myBoardList,
+                'board-read' : myBoardRead,
+                'board-write' : myBoardWrite
+            },
+
+            methods : {
                 loadData : function(e){
                     file = e.target.files[0];
+                    if(file){
+                        var reader = new FileReader();
+                        var vm = this;
+                        reader.readAsText(file);
+                        reader.onload = function(e){
+                            vm.dataArr = JSON.parse(e.target.result);
+                        };
+                        reader.onloadend = function(e){
+                            if(vm.dataArr != null && vm.dataArr['board'].length > 0){
+                                vm.listOk = true;
+                            }else{
+                                vm.listOk = false;
+                            }
+                        }
+                    }
+                },
+                boardRead : function(info){
+                    this.listOk = false;
+                    this.readOk = true;
+                    this.boardInfo = info;
+
+                    for(var i = 0; i < this.dataArr['board'].length; i++){
+                        if(this.dataArr['board'][i].no == info.no){
+                            this.dataArr['board'][i].view = parseIn
+                        }
+                    }
+                },
+
+                boardList : function(){
+                    this.readOk = false;
+                    this.writeOk = false;
+                    this.listOk = true;
+                },
+
+                boardWrite : function(){
+                    this.listOk = false;
+                    this.readOk = false;
+                    this.writeOk = true;
+                },
+
+
+                boardDelete : function(no){
+                    for(var i=0; i < this.dataArr['board'].length; i++){
+                        if(this.dataArr['board'][i].no == no){
+                            this.dataArr['board'].splice(i, 1);
+                        }
+                    }
+                },
+
+
+                saveBoardList : function(){
+                    var data = this.dataArr;
+
+                    if(data.length == 0){
+                        alert('No Board content');
+                        return;
+                    }
+
+                    var filename = 'json/board.json';
+                    if(typeof data === "object"){
+                        data = JSON.stringify(data, undefined, 4);
+                    }
+
+                    var blob = new Blob([data], {type : 'text/json'}),
+                        e    = document.createEvent('MouseEvents');
+                        a    = document.createElement('a');
+                        
+                    a.download = filename;
+                    a.href = window.URL.createObjectURL(blob);
+                    a.dataset.downloadurl = ['text/json', a.download, a.href].join(':');
+                    e.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0 , null);
+                    a.dispatchEvent(e);
                 }
             }
         })
